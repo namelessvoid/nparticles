@@ -1,0 +1,1288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>582</x>
+      <y>996</y>
+      <w>390</w>
+      <h>438</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+Engine
+--
++ init(width : int, height : int, fullscreen : bool = false, debug = false) : void
++ terminate() : void
+
++ useVSync(vSync : bool ) : void
+
++ updateAllParticleSystems() : void
++ drawAllParticleSystems() : void
+
++ processEvents() : void
+
++ windowClosed() : bool
+
++ createParticleSystem(particleCount : int, workGroupSizeX : int, workGroupSizeY : int
+    workGroupSizeZ : int, mesh : Mesh&amp;, material : Material&amp;)
+
++ getGPUProgramService() : GPUProgramService*
++ getMeshManager() : MeshManager*
++ getMaterialManager() : MaterialManager*
+
++ getCamera() : Camera&amp;
+
+- Engine()
+- ~Engine()
+
+_-staticKeyCallback(window : GLFWwindow*, key : int, scancode : int, action : int,_
+_    mods : int) : void_
+- keyCallback(window : GLFWwindow*, key : int, action : int)
+
+_-staticCursorPosCallback(window : GLFWwindow*, xpos : double, ypos : double) : void_
+- cursorPosCallback(window : GLFWwindow*, xpos : double, ypos : double) : void
+--
+- mCamera : Camera
+
+- mLastCursorPosition : dvec2
+
+- mComputeSystem : ComputeSystem
+- mRenderSystem : RenderSystem
+- mWindow : GLFWwindow*
+
+- gpuProgramService : GPUProgramService
+- particleSystems : vector&lt;ParticleSystemPtr&gt;
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>234</x>
+      <y>1416</y>
+      <w>294</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Camera
+--
++ Camera()
++ ~Camera()
+
++ setPerspective(fieldOfView : float, screenWidth : float,
+    screenHeight : float, nearClippingPlane : float,
+    farClippingPlane : float) : void
+
++ setMovementSpeed(speed : float, direction : directions) : void
++ move(distance : vec4) : void
+
++ updatePosition() : void
+
++ rotate(angle : float, rotation : rotations) : void
+
++ getViewProjectionMatrix() : mat4x4
+--
+- mUpVector : vec3
+- mDirectionVector : vec3
+- mStrafeVector : vec3
+
+- mSpeed : vec3
+- mPostion : vec3
+- mProjectionMatrix : mat4x4
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>1068</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>228</x>
+      <y>342</y>
+      <w>372</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;friend Engine&gt;&gt;
+GPUProgramService
+--
++ addSourceDir(dirPath : string, destination : string, recursive : bool = false) : void
++ addSourceFile(filePath : string,  destination : string) : void
+
++ createRenderProgram(id : string,
+    vertexSrcFile : string,
+    fragSrcFile : string,
+    tcsSrcFile : string = "",
+    tesSrcFile : string = "",
+    geometrySrcFile = "") : RenderProgram*
++ getRenderProgram(id : string) : RenderProgram*
+
++ createComputeProgram(id : string, computeSrcFile : string) : ComputeProgram*
++ getComputeProgram(id : string) : ComputeProgram*
+
+- GPUProgramService()
+- ~GPUProgramService()
+
+- getSource(sourceName : string) : string
+--
+- renderPrograms : map&lt;string, RenderProgram*&gt;
+- computePrograms : map&lt;string, ComputeProgram*&gt;
+
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>582</x>
+      <y>576</y>
+      <w>18</w>
+      <h>432</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;700.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>972</x>
+      <y>318</y>
+      <w>234</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>RenderProgram
+--
++ getVertexAttribLocation(name : string) : GLint
+
++ usesTessellation() : bool
++ setTessellationPatchSize(patchSize : int)
++ getTessellationPatchSize() : int
+
+- RenderProgram(srcfiles : string, ...)
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1230</x>
+      <y>318</y>
+      <w>180</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>ComputeProgram
+--
++ getNumWorkItemsPerGroup() : uint
++ build() : bool
+
+- ComputeProgram(srcFile : string)
+--
+- mNumWorkItemsPerGroup : uint
+- mWorkGroupSize : uint[3]
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>372</y>
+      <w>390</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;630.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>996</x>
+      <y>0</y>
+      <w>384</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;friend GPUProgramService&gt;&gt;
+/ShaderProgram/
+--
++ bind() : bool
++ unbind() : void
+
++ build() : bool
+
++ getUniformLocation(name : string) : GLint
+  // Overload for all necessary datatypes
++ setUniform(name : string, value : *) : bool
+
++ bindShaderStorageBuffer(storageBlockName : string, buffer : BufferBase*) : bool
++ bindUniformBuffer(uniformBlockName : string, buffer : BufferBase*) : bool
+
+# ShaderProgram()
+# ~ShaderProgram()
+
+# addNewShader(type : GLenum, source : string) : GLuint
+
+- compileShader(shader : GLuint) : bool
+- link() : bool
+- bindBufferToBlock(bufferTarget : GLenum, blockName : string,
+    buffer : BufferBase*) : bool
+--
+# mShaderProgram : GLuint
+# mBuildStatus : bool
+# mShaderMap : map&lt;string, GLuint&gt;
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1290</x>
+      <y>288</y>
+      <w>18</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1116</x>
+      <y>288</y>
+      <w>18</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>822</x>
+      <y>372</y>
+      <w>498</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0;90.0;10.0;90.0;110.0;810.0;110.0;810.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1038</x>
+      <y>1278</y>
+      <w>366</w>
+      <h>462</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;friend Engine&gt;&gt;
+ParticleSystem
+--
++ &lt;&lt;typedev&gt;&gt; map&lt;string, BufferBase*&gt; particle_attribute_buffers
++ &lt;&lt;typedev&gt;&gt; map&lt;string, BufferBase*&gt; uniform_buffers
++ &lt;&lt;typedev&gt;&gt; map&lt;string, AtomicCounterBuffer*&gt; atomic_counter_buffers
++ &lt;&lt;typedev&gt;&gt; vector&lt;Action*&gt; particle_actions
+--
+- ParticleSystem(particleCount : int, workGroupSizeX : int, wokrGroupSizeY : int,
+    workGroupSizeZ : int, mesh : Mesh* = nullptr, material : Material = nullptr)
+- ~ParticleSystem()
+
++ getMesh() : Mesh*
++ getMaterial() : Material*
++ getParticleCount() : unsigned int
+
++ addParticleAttribute&lt;T&gt;(id : string) : Buffer&lt;T&gt;*
++ getParticleAttributeBuffers() : const particle_attribute_buffers&amp;
++ getParticleAttributeBuffer(id : string) : BufferBase*
++ swapParticleAttributes(firstAttribute : string, secondAttribute : string) : bool
+
++ addUniformBuffer(name : string, itemCount : int = 1) : UniformBuffer&lt;T&gt;*
++ getUniformBuffer(name : string) : BufferBase&lt;T&gt;*
++ getUniformBuffers() : const uniform_buffers&amp;
+
++ addAtomicCounterBuffer(name : string, itemCount : int = 1)
++ getAtomicCounterBuffer(name : string) : AtomicCounterBuffer*
++ getAtomicCounterBuffers() : const atomic_counter_buffers&amp;
+
++ appendAction(computeProgram : ComputeProgram*) : Action*
++ getActions() : const particle_actions&amp;
+
++ emitPreRenderSignal(renderSystem : RenderSystem*) : void
++ emitPostRenderSignal(renderSystem : RenderSystem*) : void
+
++ preRenderSignal : Signal&lt;ParticleSystem*, RenderSystem*&gt;
++ PostRenderSignal : Signal&lt;ParticleSystem*, RenderSystem*&gt;
+--
+- mParticleAttributeBuffers : particle_attribute_buffers
+- mUniformBuffers : uniform_buffers
+- mAtomicCounterBuffers : atomicCounterBuffers
+
+- mParticleActions : particle_actions
+
+- mParticleCount : unsigned int
+- mWorkGroupSize : unsignedt int[3]
+
+- mesh : Mesh*
+- material : Material*
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>462</y>
+      <w>330</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;friend MeshManager&gt;&gt;
+Mesh
+--
++ bind() : void
++ unbind() : void
+
++ getVertexBuffer() : Buffer&lt;vec3&gt;*
++ getIndexBuffer() : Buffer&lt;GLuint&gt;*
+
+- Mesh(vertexCount : size_t, vertices : glm::vec3[], indexCount : size_t,
+    indices : GLuint[])
+- ~Mesh()
+--
+- mVao : GLuint
+- mVertexBuffer : BufferPtr&lt;vec3&gt;
+- mIndexBuffer : BufferPtr&lt;GLuint&gt;
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>966</x>
+      <y>1284</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1056</x>
+      <y>504</y>
+      <w>36</w>
+      <h>786</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;1290.0;10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>618</x>
+      <y>462</y>
+      <w>426</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;friend MaterialManager&gt;&gt;
+Material
+--
++ getRenderProgram() : RenderProgram*
+
++ getRenderType() : render_types
++ setRenderType(type : render_type) : void
+
+- Material(renderProgram : RenderProgram&amp;, renderType : render_type = NP_RT_TRIANGLES)
+- ~Material()
+--
+- mRenderProgram : RenderProgram&amp;
+- mRenderType : render_types
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1038</x>
+      <y>504</y>
+      <w>36</w>
+      <h>786</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>40.0;1290.0;40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1008</x>
+      <y>414</y>
+      <w>18</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>564</x>
+      <y>1506</y>
+      <w>348</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Action
+--
++ Action(computeProgram : ComputeProgram&amp;)
++ ~Action()
+
++ getComputeProgram() : ComputeProgram&amp;
+
++ preUpdateSignal : Signal&lt;ParticleSystem*, const ComputeSytsem*&gt;
++ postUpdateSignal : Signal&lt;ParticleSystem*, const ComputeSytsem*&gt;
+--
+- mComputeProgram : ComputeProgram&amp;
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>882</x>
+      <y>378</y>
+      <w>618</w>
+      <h>1398</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+computeProgram</panel_attributes>
+    <additional_attributes>10.0;2090.0;10.0;2310.0;1010.0;2310.0;1010.0;10.0;880.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>138</x>
+      <y>0</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>root object
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>138</x>
+      <y>18</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>OpenGL abstraction
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>138</x>
+      <y>42</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>particle system
+components
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>138</x>
+      <y>66</y>
+      <w>84</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>render resources
+and management
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>138</x>
+      <y>90</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>general
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1074</x>
+      <y>756</y>
+      <w>330</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>BufferBase
+--
++ BufferBaes(itemCount : int)
+/+ ~BufferBase()/
+
++ bind(target : GLenum) : void
++ bindBase(target : GLenum, index : Gluint) : void
++ unbind() : void
+
++ getItemCount() : Glsizei
+
++ getCurrentBindingTarget() : Glenum
++ getCurrentBindingIndex() : Gluint
+
++ getGlType() : GLenum
++ getGLBaseSIze() : int
+--
+# mBufferHandle : GLuint
+# mItemCount : GLsizei
+# mGlTypeInfo : glutils::GlTypeInfo
+
+- mCurrentlyBound : bool
+- mCurrentBindingTarget : GLenum
+- mCurrentBindingINdex : GLuint
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1386</x>
+      <y>558</y>
+      <w>78</w>
+      <h>504</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+
+</panel_attributes>
+    <additional_attributes>40.0;10.0;110.0;10.0;110.0;820.0;10.0;820.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1080</x>
+      <y>1110</y>
+      <w>54</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+particle
+attributes</panel_attributes>
+    <additional_attributes>40.0;280.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>174</x>
+      <y>768</y>
+      <w>180</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+Logger
+--
++ logInfo(message : string) : void
++ logWarning(message : string) : void
++ logError(message : string) : void
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>372</x>
+      <y>750</y>
+      <w>180</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>template=T: type
+Singleton
+--
++ getInstance() : T*
+# Singleton()
+# ~Singleton()
+--
+- singleton : T*
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>258</x>
+      <y>876</y>
+      <w>276</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>fileutils
+--
++ readFile(string filePath) : string
++ isFile(filePath : string) : bool
++ isDirectory(dirPath : string) : bool
++ getFileName(path : string) : string
++ getDirectoryFiles(directory : string, recursive : bool = false,
+   parent : string = "") : vector&lt;string&gt;
+valign=top
+halign=left
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>114</x>
+      <y>1110</y>
+      <w>420</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;friend Engine&gt;&gt;
+RenderSystem
+--
++ setViewProjectionMatrix(viewProMatrix : mat4x4) : void
+
++ drawParticleSystem(pSys : ParticleSystem*) : void
+
++ setVertexAttribute(attributeName : string, buffer : Buffer&lt;T&gt;*,
+    instanced : bool) : bool
+    
++ getCurrentRenderProgram() : RenderProgram*
+
+# RenderSystem()
+# ~RenderSystem()
+
+# init(widht : int, height : int, fullscreen : bool = false , debug : bool = false) : GLFWwindow*
+# termiante() : void
+
+# useVSync(vSync : bool) : void
+
+# beginFrame() : void
+# endFrame() : void
+--
+- mWindow : GLFWwindow*
+- mCurrentVertexAttributeBindings : vector&lt;GLuint&gt;
+- mCurrentRenderProgram : RenderProgram*
+- mViewProjectionMatrix : mat4x4
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>1140</y>
+      <w>66</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+</panel_attributes>
+    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>630</y>
+      <w>318</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+MeshManager
+--
++ createMesh(id : string, vertexCount : size_t, vertices : glm::vec3[],
+    indexCount : size_t, indices : GLuint[]) : Mesh*
+    
++ getMesh(id : string) : Mesh*
++ getDefaultMesh() : Mesh*
+
++ createIcosahedron(id : string) : Mesh*
+
+# createDefaultResource() : void
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1218</x>
+      <y>606</y>
+      <w>54</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=manages</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>774</y>
+      <w>186</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>template=T: type
+ResourceManager
+--
+/+ ~ResourceManager()/
+
++ getResource(id : string) : T*
++ getDefaultResource() : T*
+
++ exists(id : string) : bool
+
+/# createDefaultResoruce() = 0/
+--
+# mResourceMap : map&lt;string,T*&gt;
+# defaultResource : T*
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>1008</y>
+      <w>330</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>template=T: type
+Buffer
+--
++ Buffer(itemCount : int, glType : GLenum = GL_INVALID_VALUE,
+    glBaseSize : GLenum = -1, usage : GLenum = GL_STATIC_DRAW,
+    mainTarget : GLenum = GL_SHADER_STORAGE_BUFFER)
+    
++ setData(data : T* = nullptr) : void
+
++ map() : T*
++ unmap() : void
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1206</x>
+      <y>972</y>
+      <w>30</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;18;42</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>630</x>
+      <y>396</y>
+      <w>126</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enum&gt;&gt;
+render_types
+--
++ NP_RT_POINTS
++ NP_RT_TRIANGLES
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>660</x>
+      <y>426</y>
+      <w>30</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>18;18;18;36;18;18;18;18</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>624</x>
+      <y>606</y>
+      <w>414</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;singleton&gt;&gt;
+MaterialManager
+--
++ createMaterial(id : string, renderProgram : RenderProgram*, renderType : render_types)
+    : Material*
++ createMaterial(id : string, renderProgramId: string, renderType : render_type) : Material*
+
++ getMaterial(id : string) : Material*
++ getDefaultMaterial() : Material*
+
+# createDefaultResource() : void
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>666</x>
+      <y>696</y>
+      <w>30</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;84;18;18;18;84;18;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>834</x>
+      <y>564</y>
+      <w>44</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=manages</panel_attributes>
+    <additional_attributes>24;18;24;18;24;42</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>870</y>
+      <w>252</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>template=|... Params
+Signal
+--
++ &lt;&lt;typedef&gt;&gt; std::function&lt;void(Params...)&gt; slot
+--
++ connect(function : slot) : void
++ disconnectAll() : void
++ emit(parameters : Params...) : void
+--
+- mSlots : vector&lt;slot&gt;
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>990</x>
+      <y>792</y>
+      <w>96</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=glTypeInfo</panel_attributes>
+    <additional_attributes>18;18;84;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>666</x>
+      <y>714</y>
+      <w>426</w>
+      <h>78</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;66;18;18;414;18</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>990</y>
+      <w>246</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;friend Engine&gt;&gt;
+ComputeSystem
+--
++ updateParticleSystem(pSys : ParticleSystem*)
+
++ getCurrentComputeProgram() : ComptueProgram*
+
+# ComputeSystem()
+# ~ComputeSystem()
+--
+- mCurrentComputeProgram : ComputeProgram*
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>522</x>
+      <y>1416</y>
+      <w>72</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>84</x>
+      <y>1416</y>
+      <w>126</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enum&gt;&gt;
+Camera::rotations
+--
++ NP_ROT_PITCH
++ NP_ROT_YAW
++ NP_ROT_ROL
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>1428</y>
+      <w>54</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>18;18;42;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>84</x>
+      <y>1488</y>
+      <w>126</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enum&gt;&gt;
+Camera::directions
+--
++ NP_DIR_FOREWARD
++ NP_DIR_BACKWARD
++ NP_DIR_STRAFE_RIGHT
++ NP_DIR_STRAFE_LEFT
++ NP_DIR_UP,
++ NP_DIR_DOWN
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>192</x>
+      <y>1482</y>
+      <w>54</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;</panel_attributes>
+    <additional_attributes>18;18;42;18</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>798</x>
+      <y>768</y>
+      <w>210</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>glutils::GlTypeInfo
+--
++ GlTypeInfo(glType : GLenum, baseSize : int)
++ operator==(rhs : GlTypeInfo&amp;) : bool
++ glDebugCallback(...)
++ mGlType
++ mGlBaseSize
+layer=2
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>252</x>
+      <y>600</y>
+      <w>288</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>glutils
+--
++ glGet(target : GLenum, index : int) : GLint
++ getGlTypeInfo&lt;T&gt;(variable : T) : GlTypeInfo
++ shaderTypeToString(type : GLenum) : string
+
++ glDebugCallback(source : GLenum, type : GLenum, id : GLuint,
+    severity : GLenum, lenght : GLsizei, message : GLchar*,
+    userParam : const void*) : void
++ setGlDebugLevel(severity : GLenum) : void
+
+
++ class GlTypeInfo
+valign=top
+halign=left
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>222</x>
+      <y>162</y>
+      <w>156</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+Clock
+--
+/+ ~Clock()/
+
+/+ start() : void = 0/
+/+ stop() : void = 0/
+/+ timeAvailable() : bool = 0/
+/+ getElapsedTime() : double = 0/
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>414</x>
+      <y>210</y>
+      <w>156</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>CPUClock
+--
++ ~CPUClock()
+
++ start() : void
++ stop() : void
++ timeAvailable() : bool
++ getElapsedTime() : double 
+--
+- mStartTime : double
+- mStopTime : double
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>414</x>
+      <y>84</y>
+      <w>156</w>
+      <h>114</h>
+    </coordinates>
+    <panel_attributes>GPUClock
+--
++ ~GPUClock()
+
++ start() : void
++ stop() : void
++ timeAvailable() : bool
++ getElapsedTime() : double 
+--
+- mQuery : GLuint
+- mStarted : bool
+- mStopped : bool
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>78</y>
+      <w>66</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;96;36;96;36;18;54;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>156</y>
+      <w>66</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;36;18;36;60;54;60</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>906</x>
+      <y>1578</y>
+      <w>144</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+actions</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1146</x>
+      <y>1128</y>
+      <w>216</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>template=T : type
+UniformBuffer
+--
++ UniformBuffer(itemCount : int,
+    type : GLenum = GL_INVALID_VALUE,
+    glBaseSize : int = -1)
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1230</x>
+      <y>1098</y>
+      <w>30</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;18;36</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1212</x>
+      <y>1188</y>
+      <w>78</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+uniform buffers</panel_attributes>
+    <additional_attributes>60.0;150.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>894</x>
+      <y>954</y>
+      <w>122</w>
+      <h>594</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+signals</panel_attributes>
+    <additional_attributes>96;18;96;582;18;582</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1002</x>
+      <y>906</y>
+      <w>72</w>
+      <h>384</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>18;18;60;18;60;372</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1320</x>
+      <y>1206</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>AtomicCounterBuffer
+--
++ UniformBuffer(itemCount : int)
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1320</x>
+      <y>1098</y>
+      <w>122</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+     &lt;&lt;bind T = GLuint&gt;&gt;</panel_attributes>
+    <additional_attributes>66;18;66;108</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1338</x>
+      <y>1230</y>
+      <w>102</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+atomic counter bffers</panel_attributes>
+    <additional_attributes>80.0;80.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>990</y>
+      <w>246</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>GPUSystem
+--
++ bindParticleBuffers(pSys : ParticleSystem*,
+    shaderProgram : ShaderProgram*) : void
+
++ unbindParticleBuffers(psys : ParticleSystem*) : void
+
+# GPUSystem()
+/# ~GPUSystem()/
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>228</x>
+      <y>984</y>
+      <w>72</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;60;18</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>66</x>
+      <y>1068</y>
+      <w>60</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>18;18;18;54;48;54</additional_attributes>
+  </element>
+</diagram>

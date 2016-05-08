@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.0">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>552</x>
+      <y>568</y>
+      <w>168</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>Engine
+--
+Root object that grants access to all components
+of the simulation framework.
+
+It initialises the framework, manages ParticleSystems
+and processes keyboard and mouse inputs.
+
+It also holds a Camera which is used to navigate through
+the rendered scene.
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>388</x>
+      <y>600</y>
+      <w>100</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Camera
+--
+Camera class to perform viewport
+transformation and navigate
+through the scene.
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>524</y>
+      <w>56</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>120.0;160.0;40.0;160.0;40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>348</x>
+      <y>336</y>
+      <w>192</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;friend Engine&gt;&gt;
+GPUProgramService
+--
+Creates and manages RenderPrograms and ComputePrograms.
+
+Also responsible for the maintance of the
+virtual file system containing shader source code.
+
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>384</y>
+      <w>32</w>
+      <h>196</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;470.0;60.0;470.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>556</x>
+      <y>256</y>
+      <w>156</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>RenderProgram
+--
+A special ShaderProgram intended for rendering.
+
+Contains additional methods to manage tessellation
+and to query vertex attribute locations.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>716</x>
+      <y>256</y>
+      <w>120</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>ComputeProgram
+--
+A special ShaderProgram intended for
+computing.
+
+Contains additional methods to query
+the work group size defined in the
+compute shader.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>512</x>
+      <y>292</y>
+      <w>80</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=manages</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;60.0;180.0;60.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>184</y>
+      <w>160</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>/ShaderProgram/
+--
+Abstracts OpenGl shader programs. It is used to
+attach new shaders and build the program.
+
+It has methods to control shader subroutines,
+setting uniforms and binding shader storage, uniform
+and atomic counter buffers.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>232</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;140.0;40.0;140.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>652</x>
+      <y>232</y>
+      <w>60</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;130.0;40.0;10.0;40.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>512</x>
+      <y>304</y>
+      <w>264</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;30.0;640.0;30.0;640.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>776</x>
+      <y>512</y>
+      <w>152</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>ParticleSystem
+--
+This class describes a particle system. It holds the
+definition (Buffers) and behaviour (Actions) of
+particles.
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>432</y>
+      <w>144</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Mesh
+--
+Holds the geometrical information about an object
+(particle). This includes the vertex positions and
+their order.
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>716</x>
+      <y>540</y>
+      <w>80</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=manages</panel_attributes>
+    <additional_attributes>10.0;80.0;180.0;80.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>452</y>
+      <w>68</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>150.0;150.0;150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>564</x>
+      <y>348</y>
+      <w>160</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Material
+--
+Holds the description of how to render a Mesh, i.e.
+a RenderProgram and the type of rendered primitives
+(points or triangles).
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>364</y>
+      <w>84</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>190.0;370.0;190.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>640</x>
+      <y>292</y>
+      <w>12</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>860</x>
+      <y>572</y>
+      <w>140</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Action
+--
+Actions hold a ComputeProgram which defines
+the behaviour of particles.
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>832</x>
+      <y>256</y>
+      <w>232</w>
+      <h>332</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=compute program</panel_attributes>
+    <additional_attributes>420.0;800.0;540.0;800.0;540.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>324</y>
+      <w>144</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>BufferBase
+--
+Base class containing all type independant buffer
+operations.
+bg=magenta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>396</y>
+      <w>124</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=index and vertex buffers
+
+</panel_attributes>
+    <additional_attributes>10.0;100.0;290.0;100.0;290.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>396</y>
+      <w>60</w>
+      <h>124</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=particle attributes</panel_attributes>
+    <additional_attributes>10.0;290.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>256</y>
+      <w>120</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Logger
+--
+Simple logger class which prints to the
+standard output device.
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>424</x>
+      <y>256</y>
+      <w>124</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Singleton
+--
+Generic singleton class used to make
+other classes singleton (e.g. the engine).
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>300</x>
+      <y>292</y>
+      <w>140</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>fileutils
+--
+Namespace containing file system operations.
+valign=top
+halign=left
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>560</y>
+      <w>140</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>RenderSystem
+--
+Class responsible for initialising OpenGL and
+rendering ParticleSystems.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>560</y>
+      <w>56</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+</panel_attributes>
+    <additional_attributes>120.0;70.0;40.0;70.0;40.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>632</x>
+      <y>484</y>
+      <w>92</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>MeshManager
+--
+Creates and manages Meshes.
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>460</y>
+      <w>36</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=manages</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>552</x>
+      <y>520</y>
+      <w>124</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>ResourceManager
+--
+Base class for MaterialManager and
+MeshManager.
+
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>832</x>
+      <y>360</y>
+      <w>168</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>template=T: type
+Buffer
+--
+This class abstracts the access to an OpenGL buffer.
+It can be used to read and write data of type T to
+the buffer.
+bg=magenta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>908</x>
+      <y>340</y>
+      <w>20</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;24;12;24</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>628</x>
+      <y>400</y>
+      <w>92</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>MaterialManager
+--
+Creates and manages Materials.
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>556</x>
+      <y>392</y>
+      <w>80</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;128;12;12;72;12;12;12;72;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>624</x>
+      <y>372</y>
+      <w>50</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ 
+manages</panel_attributes>
+    <additional_attributes>28;12;28;28</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>736</x>
+      <y>604</y>
+      <w>120</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Signal
+--
+A generic signal class to which callback
+functions can be attached.
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>900</x>
+      <y>292</y>
+      <w>34</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=glTypeInfo</panel_attributes>
+    <additional_attributes>20;12;20;32</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>556</x>
+      <y>476</y>
+      <w>84</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;44;12;12;76;12;76;12</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>364</x>
+      <y>520</y>
+      <w>144</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>ComputeSystem
+--
+Class responsible for updating ParticleSystems
+i.e. executing its Actions.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>484</x>
+      <y>600</y>
+      <w>76</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>276</y>
+      <w>140</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>glutils::GlTypeInfo
+--
+Holds information about a buffer which are
+required to use it for vertex attriboute pointers.
+bg=yellow
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>348</x>
+      <y>396</y>
+      <w>164</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>glutils
+--
+Namespace containing helper methods to access
+OpenGL (e.g. encapsulationg glGet(...)).
+
+It also contains a OpenGL debug callback and method
+to control the OpenGL debug level.
+
+The GlTypeInfo class is part of this namespace
+as well.
+valign=top
+halign=left
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>192</y>
+      <w>104</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>/Clock/
+--
+Base class for clocks to measure
+time on CPU and GPU.
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>428</x>
+      <y>220</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>CPUClock
+--
+Measures time on the CPU.
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>428</x>
+      <y>196</y>
+      <w>104</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>GPUClock
+--
+Measures time on the GPU.
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>392</x>
+      <y>188</y>
+      <w>44</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;28;12;28;36;36;36</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>912</x>
+      <y>540</y>
+      <w>32</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=actions</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>852</x>
+      <y>416</y>
+      <w>112</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>template=T : type
+UniformBuffer
+--
+Generic class for uniform buffers.
+bg=magenta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>892</x>
+      <y>388</y>
+      <w>20</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;32;12;32</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>872</x>
+      <y>440</y>
+      <w>52</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+uniform buffers</panel_attributes>
+    <additional_attributes>60.0;180.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>844</x>
+      <y>584</y>
+      <w>118</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=pre and post update signal</panel_attributes>
+    <additional_attributes>12;32;84;32;84;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>800</x>
+      <y>532</y>
+      <w>76</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m2=pre and post render signals</panel_attributes>
+    <additional_attributes>40;72;40;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>920</x>
+      <y>476</y>
+      <w>120</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>AtomicCounterBuffer
+--
+Special class for atomic counter buffers.
+bg=magenta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>940</x>
+      <y>388</y>
+      <w>84</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+   &lt;&lt;bind T = GLuint&gt;&gt;</panel_attributes>
+    <additional_attributes>44;12;44;88</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>924</x>
+      <y>492</y>
+      <w>80</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=atomic counter buffers</panel_attributes>
+    <additional_attributes>10.0;90.0;150.0;90.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>348</x>
+      <y>468</y>
+      <w>164</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>GPUSystem
+--
+Base class for ComptueSystem and RenderSystem
+which has a method to bind the buffers of a
+ParticleSystem.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>344</x>
+      <y>488</y>
+      <w>64</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>56;12;56;24;12;24;12;76;24;76</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>388</x>
+      <y>488</y>
+      <w>56</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;24;48;24;48;32</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>392</x>
+      <y>188</y>
+      <w>44</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;36;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>868</x>
+      <y>208</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>root class
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>924</x>
+      <y>208</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>general classes
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>980</x>
+      <y>208</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>render resources
+and management
+bg=cyan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>868</x>
+      <y>224</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>OpenGL
+abstraction
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>924</x>
+      <y>224</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>OpenGL buffer
+abstraction
+bg=magenta</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>980</x>
+      <y>224</y>
+      <w>56</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>particle system
+components
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>868</x>
+      <y>192</y>
+      <w>168</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>
+Legend
+bg=light_gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

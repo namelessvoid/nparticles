@@ -30,4 +30,6 @@
 # misc directories
 build/*
 doc/*
+!doc/samples.md
+!doc/diagrams/
 bin/*

@@ -67,6 +67,7 @@ The documentation of the sample applications can be found in `doc/samples.md`.
 NParticles ships with a *doxygen* API. Just run `doxygen` in the engines root folder.
 
 A class diagramm (full and simplified version) are located in `doc/diagrams`.
+You need [Umlet](http://www.umlet.com/) to view them.
 
 ## Licensing
 
