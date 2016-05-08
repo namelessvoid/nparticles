@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+
+# misc directories
+build/*
+doc/*
+bin/*
