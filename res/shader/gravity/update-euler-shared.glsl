@@ -20,6 +20,7 @@ shared PositionStruct shPositions[gl_WorkGroupSize.x];
 
 /**
  * Update shader using improved Euler itnegration and shared memory.
+ */
 void main()
 {
     uint globalInvocationIndex = npGetGlobalInvocationIndex();
